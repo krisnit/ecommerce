@@ -1,0 +1,39 @@
+.homepage{
+    display:flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px 80px;
+}
+  .directory-menu{
+      display:flex;
+      width:100%;
+      flex-wrap: wrap;
+      justify-content: space-between;
+  }
+
+    .menu-item{
+        min-width:30%;
+        height:240px;
+        display: flex;
+        flex:1 1 auto;
+        margin: 0 7.5px 15px;
+        border: 1px solid black;
+        align-items: center;
+        justify-content: center;
+        
+    }
+    .content{
+        height:90px;
+        padding:0 25px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        border: 1px solid black;
+    }
+
+    .title{
+        margin-bottom: 6px;
+        font-weight: bold;
+        
+    }
