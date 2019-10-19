@@ -1,34 +1,35 @@
 import React, {useState} from 'react';
 import Menuitem from '../Menuitem/Menuitem'
-import Aux from '../../hoc/Auxillary'
+import './Menuitems.scss'
+
 const Menuitems = () => {
 const [items,setItems]= useState([ {
-    title: 'hats',
+    title: 'Hats',
     imageUrl: 'https://i.ibb.co/cvpntL1/hats.png',
     id: 1,
     linkUrl: 'shop/hats'
   },
   {
-    title: 'jackets',
+    title: 'Jackets',
     imageUrl: 'https://i.ibb.co/px2tCc3/jackets.png',
     id: 2,
     linkUrl: 'shop/jackets'
   },
   {
-    title: 'sneakers',
+    title: 'Sneakers',
     imageUrl: 'https://i.ibb.co/0jqHpnp/sneakers.png',
     id: 3,
     linkUrl: 'shop/sneakers'
   },
   {
-    title: 'womens',
+    title: 'Womens',
     imageUrl: 'https://i.ibb.co/GCCdy8t/womens.png',
     size: 'large',
     id: 4,
     linkUrl: 'shop/womens'
   },
   {
-    title: 'mens',
+    title: 'Mens',
     imageUrl: 'https://i.ibb.co/R70vBrQ/men.png',
     size: 'large',
     id: 5,
@@ -36,7 +37,8 @@ const [items,setItems]= useState([ {
   }])
 
 const finalItems= items.map(a=>
-    <Menuitem title={a.title} key={a.id}/>)
+    <Menuitem title={a.title} key={a.id} imageUrl={a.imageUrl} 
+              size={a.size}/>)
     return ( <div className='directory-menu'>
         {finalItems}
         </div> );
