@@ -39,8 +39,11 @@ const [items,setItems]= useState([ {
 const finalItems= items.map(a=>
     <Menuitem title={a.title} key={a.id} imageUrl={a.imageUrl} 
               size={a.size}/>)
-    return ( <div className='directory-menu'>
+    return ( 
+      <div className='homepage'>
+      <div className='directory-menu'>
         {finalItems}
+        </div>
         </div> );
 }
  
