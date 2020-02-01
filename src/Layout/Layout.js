@@ -3,6 +3,7 @@ import './Layout.scss'
 import { Route, Switch } from 'react-router-dom'
 import '../Components/Menuitems/Menuitems'
 import Menuitems from '../Components/Menuitems/Menuitems';
+import Shop from '../Containers/Shop/Shop'
 
 const hats = (props)=>{
     
@@ -17,6 +18,7 @@ const Layout = () => {
     return ( 
             <Switch>
             <Route path='/shop/hats' exact component={hats}/>
+            <Route path='/shop' exact component={Shop}/>
             <Route path='/' exact component={Menuitems}/>
             </Switch>
      );
