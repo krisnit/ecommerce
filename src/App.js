@@ -1,15 +1,17 @@
-import React from 'react';
-import './App.css';
-import Layout from './Layout/Layout'
-import Aux from './hoc/Auxillary'
-import { BrowserRouter } from 'react-router-dom';
+import React from "react";
+import "./App.css";
+import Layout from "./Layout/Layout";
+import Aux from "./hoc/Auxillary";
+import { BrowserRouter } from "react-router-dom";
+import Header from "./Components/Header/Header";
 
 function App() {
   return (
     <BrowserRouter>
-    <Aux>
-      <Layout/>
-    </Aux>
+      <Aux>
+        <Header />
+        <Layout />
+      </Aux>
     </BrowserRouter>
   );
 }

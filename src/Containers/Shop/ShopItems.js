@@ -5,7 +5,7 @@ import "./ShopItems.scss";
 const ItemsDisplay = ({ items, title }) => {
   return (
     <div className="list-items">
-      <h1>{title}</h1>
+      <h1>{title.toUpperCase()}</h1>
       <div className="items-collection">
         {items.slice(0, 4).map(({ id, ...otherValues }) => (
           <ShopItem key={id} {...otherValues} />
