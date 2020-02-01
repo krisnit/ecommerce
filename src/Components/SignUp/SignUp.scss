@@ -1,0 +1,37 @@
+.signup {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  h1 {
+    display: flex;
+    margin: 2rem auto;
+  }
+  .signup-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+    input {
+      display: flex;
+      margin-bottom: 1.3rem;
+      width: 25rem;
+      border: none;
+      height: 2rem;
+      border-bottom: 1px solid black;
+    }
+    label {
+      margin-right: auto;
+      font-size: 0.8rem;
+      opacity: 0.8;
+    }
+    button {
+      margin: 1rem auto;
+      width: 10rem;
+      height: 2.5rem;
+      border: none;
+      background: black;
+      color: white;
+      border-radius: 2rem;
+    }
+  }
+}
