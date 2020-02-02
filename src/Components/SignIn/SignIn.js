@@ -1,11 +1,12 @@
 import React from "react";
 import "./SignIn.scss";
 import { Link } from "react-router-dom";
+import { signInWithGoogle } from "../../firebase/firebase";
 
 const SignIn = () => {
   const [value, setValue] = React.useState({
-    password: "",
-    email: ""
+    password: null,
+    email: null
   });
   const handleChange = e => {
     setValue({
@@ -43,7 +44,7 @@ const SignIn = () => {
       </p>
       <div className="signin-google">
         <h3>OR</h3>
-        <button>SignIn with Google</button>
+        <button onClick={signInWithGoogle}>SignIn with Google</button>
       </div>
     </div>
   );
