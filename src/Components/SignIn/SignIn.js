@@ -5,8 +5,8 @@ import { signInWithGoogle } from "../../firebase/firebase";
 
 const SignIn = () => {
   const [value, setValue] = React.useState({
-    password: null,
-    email: null
+    password: "",
+    email: ""
   });
   const handleChange = e => {
     setValue({

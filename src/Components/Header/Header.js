@@ -9,8 +9,14 @@ const Header = ({ user }) => {
   console.log(user);
   return (
     <div className="header">
-      <Link to="/"></Link>
-      <Logo className="logo" />
+      <Link to="/" className="logo">
+        <Logo />
+      </Link>
+      {user ? (
+        <p className="welcome">Welcome {user.displayName.split(" ")[0]}</p>
+      ) : (
+        <p></p>
+      )}
       <div className="options">
         <Link to="/shop" className="option">
           SHOP

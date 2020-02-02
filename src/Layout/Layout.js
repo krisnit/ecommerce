@@ -7,7 +7,7 @@ import Shop from "../Containers/Shop/Shop";
 import SignIn from "../Components/SignIn/SignIn";
 import SignUp from "../Components/SignUp/SignUp";
 import Header from "../Components/Header/Header";
-import { auth } from "../firebase/firebase";
+import { auth, createUserProfileDocument } from "../firebase/firebase";
 
 let initialUser = { user: null };
 
@@ -15,12 +15,18 @@ const Layout = () => {
   const [currentUser, setCurrentUser] = React.useState(initialUser);
 
   React.useEffect(() => {
-    const unSubscribeFromAuth = auth.onAuthStateChanged(user => {
+    const unSubscribeFromAuth = auth.onAuthStateChanged(async user => {
       if (user) {
-        setCurrentUser(() => ({ ...currentUser, user: user }));
-        console.log(currentUser);
+        let userRef = await createUserProfileDocument(user);
+        userRef.onSnapshot(snapshot => {
+          setCurrentUser(() => {
+            return {
+              user: { id: snapshot.id, ...snapshot.data() }
+            };
+          }, []);
+        });
       } else {
-        setCurrentUser(() => ({ ...currentUser, user: null }));
+        setCurrentUser(() => ({ user: null }), []);
       }
     });
     return () => {
