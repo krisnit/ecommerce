@@ -1,23 +1,44 @@
 import React from "react";
 import "./SignIn.scss";
 import { Link } from "react-router-dom";
-import { signInWithGoogle } from "../../firebase/firebase";
+import { auth, signInWithGoogle } from "../../firebase/firebase";
+import { withRouter } from "react-router-dom";
 
-const SignIn = () => {
-  const [value, setValue] = React.useState({
-    password: "",
-    email: ""
-  });
+const initialState = {
+  password: "",
+  email: ""
+};
+
+const SignIn = props => {
+  const [value, setValue] = React.useState(initialState);
+  const handleGoogleSignIn = async e => {
+    await signInWithGoogle();
+    props.history.push("/");
+  };
   const handleChange = e => {
     setValue({
       ...value,
       [e.target.name]: e.target.value
     });
   };
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+    const { email, password } = value;
+
+    try {
+      let user = await auth.signInWithEmailAndPassword(email, password);
+      setValue(initialState);
+      props.history.push("/");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="signin">
       <h1>Sign In</h1>
-      <form className="signinform">
+      <form className="signinform" onSubmit={handleSubmit}>
         <label htmlFor="email">Email</label>
         <input
           type="email"
@@ -44,10 +65,10 @@ const SignIn = () => {
       </p>
       <div className="signin-google">
         <h3>OR</h3>
-        <button onClick={signInWithGoogle}>SignIn with Google</button>
+        <button onClick={handleGoogleSignIn}>SignIn with Google</button>
       </div>
     </div>
   );
 };
 
-export default SignIn;
+export default withRouter(SignIn);
