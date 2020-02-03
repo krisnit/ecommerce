@@ -1,6 +1,6 @@
 import React from "react";
 import "./Layout.scss";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import "../Components/Menuitems/Menuitems";
 import Menuitems from "../Components/Menuitems/Menuitems";
 import Shop from "../Containers/Shop/Shop";
@@ -11,10 +11,7 @@ import { auth, createUserProfileDocument } from "../firebase/firebase";
 import { connect } from "react-redux";
 import { setUser } from "../redux/actionCreators";
 
-let initialUser = { user: null };
-
 const Layout = props => {
-  const [currentUser, setCurrentUser] = React.useState(initialUser);
   console.log(props);
   React.useEffect(() => {
     const unSubscribeFromAuth = auth.onAuthStateChanged(async user => {
@@ -43,8 +40,20 @@ const Layout = props => {
       <Header />
       <Switch>
         <Route path="/shop" exact component={Shop} />
-        <Route path="/signin" exact component={SignIn} />
-        <Route path="/signup" exact component={SignUp} />
+        <Route
+          path="/signin"
+          exact
+          render={() => {
+            return props.currentUser ? <Redirect to="/" /> : <SignIn />;
+          }}
+        />
+        <Route
+          path="/signup"
+          exact
+          render={() => {
+            return props.currentUser ? <Redirect to="/" /> : <SignUp />;
+          }}
+        />
         <Route path="/" exact component={Menuitems} />
       </Switch>
     </>
@@ -56,7 +65,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return { setUser: x => dispatch({ type: "SET_CURRENT_USER", payload: x }) };
+  return { setUser: x => dispatch(setUser(x)) };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Layout);

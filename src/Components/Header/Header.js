@@ -26,7 +26,7 @@ const Header = props => {
           CONTACT
         </Link>
         {user ? (
-          <Link to="/signout" onClick={() => auth.signOut()} className="option">
+          <Link to="/" onClick={() => auth.signOut()} className="option">
             SIGN OUT
           </Link>
         ) : (
