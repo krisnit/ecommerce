@@ -8,25 +8,29 @@ import SignIn from "../Components/SignIn/SignIn";
 import SignUp from "../Components/SignUp/SignUp";
 import Header from "../Components/Header/Header";
 import { auth, createUserProfileDocument } from "../firebase/firebase";
+import { connect } from "react-redux";
+import { setUser } from "../redux/actionCreators";
 
 let initialUser = { user: null };
 
-const Layout = () => {
+const Layout = props => {
   const [currentUser, setCurrentUser] = React.useState(initialUser);
-
+  console.log(props);
   React.useEffect(() => {
     const unSubscribeFromAuth = auth.onAuthStateChanged(async user => {
       if (user) {
         let userRef = await createUserProfileDocument(user);
         userRef.onSnapshot(snapshot => {
-          setCurrentUser(() => {
-            return {
-              user: { id: snapshot.id, ...snapshot.data() }
-            };
-          }, []);
+          props.setUser({ id: snapshot.id, ...snapshot.data() });
+          // setCurrentUser(() => {
+          //   return {
+          //     user: { id: snapshot.id, ...snapshot.data() }
+          //   };
+          // }, []);
         });
       } else {
-        setCurrentUser(() => ({ user: null }), []);
+        // setCurrentUser(() => ({ user: null }), []);
+        props.setUser(null);
       }
     });
     return () => {
@@ -36,7 +40,7 @@ const Layout = () => {
 
   return (
     <>
-      <Header {...currentUser} />
+      <Header />
       <Switch>
         <Route path="/shop" exact component={Shop} />
         <Route path="/signin" exact component={SignIn} />
@@ -47,4 +51,12 @@ const Layout = () => {
   );
 };
 
-export default Layout;
+const mapStateToProps = state => {
+  return { currentUser: state.user.user };
+};
+
+const mapDispatchToProps = dispatch => {
+  return { setUser: x => dispatch({ type: "SET_CURRENT_USER", payload: x }) };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Layout);

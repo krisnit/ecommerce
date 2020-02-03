@@ -10,6 +10,7 @@ const initialState = {
 };
 
 const SignIn = props => {
+  console.log(props);
   const [value, setValue] = React.useState(initialState);
   const handleGoogleSignIn = async e => {
     await signInWithGoogle();
