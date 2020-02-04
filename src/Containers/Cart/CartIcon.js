@@ -7,12 +7,15 @@ const Cart = props => {
   return (
     <div className="cart" onClick={props.setCartVisibility}>
       <CartIcon className="cart-icon" />
-      <span className="cart-count">0</span>
+      <span className="cart-count">{props.totalItems}</span>
     </div>
   );
 };
 const mapStateToProps = state => {
-  return { cartHidden: state.cart.hidden };
+  return {
+    cartHidden: state.cart.hidden,
+    totalItems: state.cart.cartItems.length
+  };
 };
 
 const mapDispatchToProps = dispatch => {

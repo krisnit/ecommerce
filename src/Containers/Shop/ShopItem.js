@@ -1,7 +1,10 @@
 import React from "react";
 import "./ShopItem.scss";
+import { connect } from "react-redux";
+import { addToCart } from "../../redux/actionCreators";
 
-const Item = ({ id, name, price, imageUrl }) => {
+const Item = props => {
+  const { name, price, imageUrl } = props;
   return (
     <div className="shopitem">
       <div
@@ -12,8 +15,16 @@ const Item = ({ id, name, price, imageUrl }) => {
         <span className="name">{name}</span>
         <span className="price">${price}</span>
       </div>
+      <button onClick={() => props.addCart(name)}>Add To Cart</button>
     </div>
   );
 };
 
-export default Item;
+const mapStateToProps = state => ({});
+const mapDispatchToProps = dispatch => {
+  return {
+    addCart: item => dispatch(addToCart(item))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Item);
