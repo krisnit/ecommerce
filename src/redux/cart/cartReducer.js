@@ -1,23 +1,27 @@
 const initialState = {
   hidden: false,
-  cartItems: [],
-  totalCount: {}
+  cartItems: []
 };
 const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case "TOGGLE_CART":
       return { ...state, hidden: !state.hidden };
     case "ADD_TO_CART":
-      let items = { ...state.totalCount };
-      if (state.cartItems.includes(`${action.payload}`))
-        items[action.payload]++;
-      else items[action.payload] = 1;
-      console.log(items, `${action.payload}`);
-      return {
-        ...state,
-        cartItems: [...state.cartItems, action.payload],
-        totalCount: { ...state.totalCount, ...items }
-      };
+      let itemExists = state.cartItems.find(
+        item => item.id === action.payload.id
+      );
+      let addedCart = [];
+      if (itemExists) {
+        addedCart = state.cartItems.map(item =>
+          item.id === action.payload.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : { ...item }
+        );
+      } else {
+        addedCart = [...state.cartItems, { ...action.payload, quantity: 1 }];
+      }
+      console.log(addedCart);
+      return { ...state, cartItems: [...addedCart] };
     default:
       return state;
   }

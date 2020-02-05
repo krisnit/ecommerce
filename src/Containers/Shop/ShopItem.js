@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { addToCart } from "../../redux/actionCreators";
 
 const Item = props => {
-  const { name, price, imageUrl } = props;
+  const { id, name, price, imageUrl } = props;
   return (
     <div className="shopitem">
       <div
@@ -15,7 +15,9 @@ const Item = props => {
         <span className="name">{name}</span>
         <span className="price">${price}</span>
       </div>
-      <button onClick={() => props.addCart(name)}>Add To Cart</button>
+      <button onClick={() => props.addCart({ id, name, price, imageUrl })}>
+        Add To Cart
+      </button>
     </div>
   );
 };
