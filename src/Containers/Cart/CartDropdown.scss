@@ -14,7 +14,6 @@
   .cart-items {
     height: 240px;
     display: flex;
-    justify-content: space-between;
     flex-direction: column;
     overflow: scroll;
     &::-webkit-scrollbar {
@@ -27,6 +26,7 @@
     }
     .cart-item {
       display: flex;
+      margin: 4px 0;
       img {
         width: 80px;
         height: 80px;
@@ -34,9 +34,7 @@
       .item-data {
         display: flex;
         flex-direction: column;
-        div {
-          margin: auto;
-        }
+        margin-left: 10px;
       }
     }
   }
