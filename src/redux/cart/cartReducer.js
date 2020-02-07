@@ -22,15 +22,15 @@ const cartReducer = (state = initialState, action) => {
       }
       return { ...state, cartItems: [...addedCart] };
     case "REMOVE_ITEM":
-      console.log(action, state.cartItems);
       let modifiedCart = state.cartItems.filter(
         item => item.id !== action.payload
       );
       return { ...state, cartItems: modifiedCart };
     case "MODIFY_ITEM":
       let modifiedItems = state.cartItems.reduce((acc, item) => {
-        if (item.id === action.payload.id && parseInt(item.quantity) > 0)
-          acc.push({ ...item, quantity: item.quantity + action.payload.count });
+        let quant = item.quantity + action.payload.count;
+        if (item.id === action.payload.id && quant >= 0)
+          acc.push({ ...item, quantity: quant });
         else {
           acc.push(item);
         }

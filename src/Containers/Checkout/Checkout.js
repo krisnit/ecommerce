@@ -4,7 +4,11 @@ import { connect } from "react-redux";
 import { removeItem, modifyItem } from "../../redux/actionCreators";
 
 const Checkout = props => {
-  console.log(props);
+  let total = props.data.reduce((a, b) => {
+    a = a + parseFloat(b.price) * parseFloat(b.quantity);
+    return a;
+  }, 0);
+
   return (
     <div className="checkout-page">
       <div className="header-block">
@@ -21,21 +25,26 @@ const Checkout = props => {
             <span>{item.name}</span>
             <span>
               <button
-                onClick={() => props.modifyItem({ id: item.id, count: -1 })}
-              >
-                -
+                onClick={() => props.modifyItem({ id: item.id, count: -1 })}>
+                &#10094;
               </button>
-              {item.quantity} <button>+</button>
+              {item.quantity}{" "}
+              <button
+                onClick={() => props.modifyItem({ id: item.id, count: 1 })}>
+                &#10095;
+              </button>
             </span>
             <span>${parseFloat(item.price) * parseFloat(item.quantity)}</span>
             <button
               onClick={() => props.removeItem(item.id)}
-              className="removeitem"
-            >
-              X
+              className="removeitem">
+              &#10005;
             </button>
           </div>
         ))}
+      </div>
+      <div className="checkout-total">
+        <h1>Total = ${total}</h1>
       </div>
     </div>
   );
