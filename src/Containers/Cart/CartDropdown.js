@@ -1,27 +1,38 @@
 import React from "react";
 import "./CartDropdown.scss";
 import { connect } from "react-redux";
-
+import CartItem from "./CartItem";
+import { withRouter } from "react-router-dom";
+import { toggleCart } from "../../redux/actionCreators";
 const CartDropdown = props => {
-  console.log(props);
   return (
     <div className="cart-dropdown">
       <div className="cart-items">
-        {props.data.map(item => (
-          <div className="cart-item" key={item.id}>
-            <img alt={item.name} src={item.imageUrl} />
-            <div className="item-data">
-              <div>{item.name}</div>
-              <div>
-                {item.quantity} x ${item.price}
-              </div>
-            </div>
-          </div>
-        ))}
+        {props.data.length > 0 ? (
+          props.data.map(item => <CartItem key={item.id} {...item} />)
+        ) : (
+          <span className="cartEmpty">Your Cart is Empty</span>
+        )}
       </div>
-      <button>Go To CheckOut</button>
+      {props.data.length > 0 && (
+        <button
+          onClick={() => {
+            props.history.push("/checkout");
+            props.setCartVisibility();
+          }}
+        >
+          Go To CheckOut
+        </button>
+      )}
     </div>
   );
 };
 const mapStateToProps = state => ({ data: state.cart.cartItems });
-export default connect(mapStateToProps)(CartDropdown);
+const mapDispatchToProps = dispatch => {
+  return {
+    setCartVisibility: () => dispatch(toggleCart())
+  };
+};
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(CartDropdown)
+);

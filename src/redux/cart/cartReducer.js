@@ -20,8 +20,24 @@ const cartReducer = (state = initialState, action) => {
       } else {
         addedCart = [...state.cartItems, { ...action.payload, quantity: 1 }];
       }
-      console.log(addedCart);
       return { ...state, cartItems: [...addedCart] };
+    case "REMOVE_ITEM":
+      console.log(action, state.cartItems);
+      let modifiedCart = state.cartItems.filter(
+        item => item.id !== action.payload
+      );
+      return { ...state, cartItems: modifiedCart };
+    case "MODIFY_ITEM":
+      let modifiedItems = state.cartItems.reduce((acc, item) => {
+        if (item.id === action.payload.id && parseInt(item.quantity) > 0)
+          acc.push({ ...item, quantity: item.quantity + action.payload.count });
+        else {
+          acc.push(item);
+        }
+        console.log(acc);
+        return acc;
+      }, []);
+      return { ...state, cartItems: modifiedItems };
     default:
       return state;
   }

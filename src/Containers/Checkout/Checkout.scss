@@ -1,0 +1,33 @@
+.checkout-page {
+  margin: 5% 0;
+  .header-block {
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr 2fr 1fr;
+  }
+  .checkout-items {
+    div {
+      display: grid;
+      grid-template-columns: 2fr 2fr 2fr 2fr 1fr;
+      grid-template-rows: 100px;
+      align-items: center;
+      img {
+        width: 80px;
+      }
+      button {
+        font-weight: bolder;
+        border: none;
+        background: white;
+        width: 1.2rem;
+        font-weight: 1.2rem;
+      }
+    }
+  }
+  .header-block {
+    // margin-top: 10%;
+
+    border-bottom: 2px solid black;
+    span {
+      margin-bottom: 1rem;
+    }
+  }
+}

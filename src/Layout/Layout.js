@@ -10,6 +10,7 @@ import Header from "../Components/Header/Header";
 import { auth, createUserProfileDocument } from "../firebase/firebase";
 import { connect } from "react-redux";
 import { setUser } from "../redux/actionCreators";
+import CheckOut from "../Containers/Checkout/Checkout";
 
 const Layout = props => {
   console.log(props);
@@ -19,14 +20,8 @@ const Layout = props => {
         let userRef = await createUserProfileDocument(user);
         userRef.onSnapshot(snapshot => {
           props.setUser({ id: snapshot.id, ...snapshot.data() });
-          // setCurrentUser(() => {
-          //   return {
-          //     user: { id: snapshot.id, ...snapshot.data() }
-          //   };
-          // }, []);
         });
       } else {
-        // setCurrentUser(() => ({ user: null }), []);
         props.setUser(null);
       }
     });
@@ -40,6 +35,7 @@ const Layout = props => {
       <Header />
       <Switch>
         <Route path="/shop" exact component={Shop} />
+        <Route exact path="/checkout" component={CheckOut} />
         <Route
           path="/signin"
           exact

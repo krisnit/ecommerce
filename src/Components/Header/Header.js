@@ -38,6 +38,7 @@ const Header = props => {
         )}
         <CartIcon onClick={props.setCartVisibility} />
       </div>
+
       {props.cartHidden && <CartDropdown />}
     </div>
   );
